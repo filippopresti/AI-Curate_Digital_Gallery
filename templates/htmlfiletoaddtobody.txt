@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Curated Digital Gallery</title>
+      <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-image: url(../static/seamless-7.png);
+            background-size: 200px;
+            background-repeat: repeat;
+        }
+        input[type="file"] {
+            margin: 20px;
+        }
+        img {
+            width: 100%;
+            max-width: 500px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Style Transfer with Python</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        <!-- File upload for content image -->
+        <input type="file" name="content-image" accept="image/*" />
+        <br />
+
+        <!-- File upload for style image -->
+        <input type="file" name="style-image" accept="image/*" />
+        <br />
+
+        <!-- Button to apply style transfer -->
+        <button type="submit">Apply Style Transfer</button>
+         <br>
+        {% if error %}
+           <p style = "color:red;"> {{error}} </p>
+        {% endif %}
+    </form>
+
+    {% if content_image_path %}
+        <h2>Content Image</h2>
+        <img src="{{ url_for('static', filename=content_image_path.split('/')[-1]) }}" alt="Content Image Preview" />
+    {% endif %}
+
+    {% if style_image_path %}
+    <h2>Style Image</h2>
+    <img src="{{ url_for('static', filename=style_image_path.split('/')[-1]) }}" alt="Style Image Preview" />
+    {% endif %}
+    
+     {% if stylized_image_data %}
+    <h2>Stylized Image</h2>
+        <img src="{{ stylized_image_data }}" alt="Stylized Image" />
+    {% endif %}
+</body>
+</html>
